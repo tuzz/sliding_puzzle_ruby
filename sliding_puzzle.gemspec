@@ -7,4 +7,6 @@ Gem::Specification.new do |s|
   s.email       = "chris@patuzzo.co.uk"
   s.homepage    = "https://github.com/tuzz/sliding_puzzle"
   s.files       = ["README.md"] + Dir["lib/**/*.*"]
+
+  s.add_development_dependency "rspec"
 end
