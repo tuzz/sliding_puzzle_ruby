@@ -222,6 +222,28 @@ For puzzles with greater than 12 tiles, you won't be able to precompute an
 oracle in a reasonable amount of time. The 4x4 puzzle will take more than 40,000
 times longer to precompute than the 3x4 puzzle and require terrabytes of RAM.
 
+### Other methods ###
+
+There are a few other methods that may be useful:
+
+```ruby
+# Get the number on the first row and second column:
+puzzle.get(0, 1)
+#=> 5
+
+# Find the row and column of the number 5:
+puzzle.find(5)
+#=> [0, 1]
+
+# Return a clone of the array of tiles:
+puzzle.tiles
+#=> [[1, 5,  2,  3], [4, 0,  6,  7], [8, 9, 10, 11]]
+
+# Return a clone of the puzzle:
+puzzle.clone
+#=> #<SlidingPuzzle:object_id>
+```
+
 ### Ideas to try ###
 
 I hope you have fun with this gem. Here are some things to try:
