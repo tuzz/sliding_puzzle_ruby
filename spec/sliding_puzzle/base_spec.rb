@@ -163,4 +163,36 @@ RSpec.describe SlidingPuzzle do
       end
     end
   end
+
+  describe "#scramble!" do
+    it "scrambles the puzzle" do
+      subject.scramble!
+
+      expect(subject.tiles).not_to eq [
+        [1, 2, 0],
+        [3, 4, 5],
+        [6, 7, 8],
+      ]
+    end
+
+    it "can take an optional number of moves" do
+      subject.scramble!(moves: 1)
+
+      top_middle = subject.get(0, 1)
+      top_right = subject.get(0, 2)
+      middle_right = subject.get(1, 2)
+
+      tiles = [top_middle, top_right, middle_right]
+
+      expect([[0, 2, 5], [2, 5, 0]]).to include(tiles)
+    end
+  end
+
+  describe "#get" do
+    it "gets the tile at row, column" do
+      expect(subject.get(0, 0)).to eq(1)
+      expect(subject.get(1, 1)).to eq(4)
+      expect(subject.get(2, 0)).to eq(6)
+    end
+  end
 end

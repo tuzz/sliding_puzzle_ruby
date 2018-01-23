@@ -46,8 +46,20 @@ class SlidingPuzzle
     moves
   end
 
+  def scramble!(moves: 100)
+    moves.times do
+      slide!(self.moves.sample)
+    end
+
+    self
+  end
+
   def tiles
     JSON.parse(JSON.generate(@tiles))
+  end
+
+  def get(row, column)
+    @tiles[row][column]
   end
 
   def find(number)

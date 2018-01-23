@@ -31,4 +31,20 @@ RSpec.describe SlidingPuzzle do
       "unable to slide left",
     )
   end
+
+  it "works for the 'Scrambling' example in the readme" do
+    puzzle = SlidingPuzzle.new(
+      [1, 2, 0],
+      [3, 4, 5],
+      [6, 7, 8],
+    )
+
+    puzzle.scramble!
+
+    expect(puzzle.tiles).not_to eq [
+      [1, 2, 0],
+      [3, 4, 5],
+      [6, 7, 8],
+    ]
+  end
 end
