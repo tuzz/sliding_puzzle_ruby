@@ -61,4 +61,35 @@ RSpec.describe SlidingPuzzle do
       [5, 6, 7, 4],
     ].map(&:inspect).join("\n")).to_stdout
   end
+
+  pending "works for the 'Solving' example in the readme"
+  pending "works for the 'Oracles' example in the readme"
+  pending "works for the 'Impossible puzzles' example in the readme"
+  pending "works for the 'Precomputing' example in the readme"
+
+  it "works for the 'Other methods' example in the readme" do
+    puzzle = SlidingPuzzle.new(
+      [1, 5,  2,  3],
+      [4, 0,  6,  7],
+      [8, 9, 10, 11],
+    )
+
+    expect(puzzle.get(0, 1)).to eq(5)
+    expect(puzzle.find(5)).to eq [0, 1]
+
+    puzzle.tiles[0][0] = 999
+    expect(puzzle.tiles).to eq [
+      [1, 5,  2,  3],
+      [4, 0,  6,  7],
+      [8, 9, 10, 11],
+    ]
+
+    clone = puzzle.clone
+    puzzle.slide(:right)
+    expect(clone.tiles).to eq [
+      [1, 5,  2,  3],
+      [4, 0,  6,  7],
+      [8, 9, 10, 11],
+    ]
+  end
 end
