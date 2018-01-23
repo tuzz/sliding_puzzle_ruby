@@ -73,6 +73,44 @@ RSpec.describe SlidingPuzzle do
     end
   end
 
+  describe "#slide" do
+    it "does not mutate the existing puzzle and returns a new one" do
+      puzzle = subject.slide(:right)
+
+      expect(subject.tiles).to eq [
+        [1, 2, 0],
+        [3, 4, 5],
+        [6, 7, 8],
+      ]
+
+      expect(puzzle.tiles).to eq [
+        [1, 0, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+      ]
+    end
+  end
+
+  describe "#clone" do
+    it "returns a new instance of the puzzle and its tiles" do
+      clone = subject.clone
+      subject.slide(:right)
+
+      expect(clone.tiles).to eq [
+        [1, 2, 0],
+        [3, 4, 5],
+        [6, 7, 8],
+      ]
+    end
+  end
+
+  describe "#print" do
+    it "prints the tiles to stdout" do
+      expected = subject.tiles.map(&:inspect).join("\n")
+      expect { subject.print }.to output(expected).to_stdout
+    end
+  end
+
   describe "#moves" do
     it "returns valid corner moves" do
       expect(subject.moves).to eq [:right, :up]
@@ -96,6 +134,13 @@ RSpec.describe SlidingPuzzle do
       )
 
       expect(subject.moves).to eq [:right, :up, :down]
+    end
+  end
+
+  describe "#tiles" do
+    it "returns a clone of the puzzle's tiles" do
+      subject.tiles[0][0] = 999
+      expect(subject.tiles[0][0]).to eq(1)
     end
   end
 

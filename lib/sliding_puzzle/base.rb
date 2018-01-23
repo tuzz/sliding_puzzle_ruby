@@ -1,8 +1,8 @@
 class SlidingPuzzle
   def initialize(*tiles)
     self.tiles = flatten_tiles(tiles)
-    self.max_row = tiles.size - 1
-    self.max_column = tiles.first.size - 1
+    self.max_row = @tiles.size - 1
+    self.max_column = @tiles.first.size - 1
   end
 
   def slide!(direction)
@@ -19,9 +19,19 @@ class SlidingPuzzle
     x2 -= 1 if direction == :down
 
     @tiles[x1][y1], @tiles[x2][y2] = @tiles[x2][y2], @tiles[x1][y1]
+    self
+  end
+
+  def slide(direction)
+    clone.slide!(direction)
+  end
+
+  def clone
+    self.class.new(*tiles)
   end
 
   def print
+    Kernel.print @tiles.map(&:inspect).join("\n")
   end
 
   def moves
@@ -37,7 +47,7 @@ class SlidingPuzzle
   end
 
   def tiles
-    @tiles
+    JSON.parse(JSON.generate(@tiles))
   end
 
   def find(number)
