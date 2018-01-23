@@ -41,6 +41,37 @@ RSpec.describe SlidingPuzzle do
     end
   end
 
+  describe "#slide!" do
+    it "slides a tile in the direction of the blank" do
+      subject = described_class.new(
+        [1, 2, 0],
+        [3, 4, 5],
+        [6, 7, 8],
+      )
+
+      subject.slide!(:right)
+      expect(subject.tiles).to eq [
+        [1, 0, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+      ]
+
+      subject.slide!(:up)
+      expect(subject.tiles).to eq [
+        [1, 4, 2],
+        [3, 0, 5],
+        [6, 7, 8],
+      ]
+    end
+
+    it "raises an error if the move is invalid" do
+      expect { subject.slide!(:down) }
+        .to raise_error(
+          described_class::InvalidMoveError,
+          "unable to slide down",
+        )
+    end
+  end
 
   describe "#moves" do
     it "returns valid corner moves" do
@@ -67,6 +98,7 @@ RSpec.describe SlidingPuzzle do
       expect(subject.moves).to eq [:right, :up, :down]
     end
   end
+
   describe "#find" do
     it "finds the row and column of a number" do
       result = subject.find(1)

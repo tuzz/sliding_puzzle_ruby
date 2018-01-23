@@ -6,6 +6,19 @@ class SlidingPuzzle
   end
 
   def slide!(direction)
+    unless moves.include?(direction)
+      raise InvalidMoveError, "unable to slide #{direction}"
+    end
+
+    x1, y1 = find(0)
+    x2, y2 = x1, y1
+
+    y2 += 1 if direction == :left
+    y2 -= 1 if direction == :right
+    x2 += 1 if direction == :up
+    x2 -= 1 if direction == :down
+
+    @tiles[x1][y1], @tiles[x2][y2] = @tiles[x2][y2], @tiles[x1][y1]
   end
 
   def print
@@ -49,4 +62,6 @@ class SlidingPuzzle
 
   attr_accessor :max_row, :max_column
   attr_writer :tiles
+
+  class InvalidMoveError < StandardError; end
 end
