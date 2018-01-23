@@ -41,6 +41,32 @@ RSpec.describe SlidingPuzzle do
     end
   end
 
+
+  describe "#moves" do
+    it "returns valid corner moves" do
+      expect(subject.moves).to eq [:right, :up]
+    end
+
+    it "returns valid center moves" do
+      subject = described_class.new(
+        [1, 2, 3],
+        [4, 0, 5],
+        [6, 7, 8],
+      )
+
+      expect(subject.moves).to eq [:left, :right, :up, :down]
+    end
+
+    it "returns valid edge moves" do
+      subject = described_class.new(
+        [1, 2, 3],
+        [4, 5, 0],
+        [6, 7, 8],
+      )
+
+      expect(subject.moves).to eq [:right, :up, :down]
+    end
+  end
   describe "#find" do
     it "finds the row and column of a number" do
       result = subject.find(1)
