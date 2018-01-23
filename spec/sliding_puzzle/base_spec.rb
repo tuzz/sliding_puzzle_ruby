@@ -1,14 +1,16 @@
 require "spec_helper"
 
 RSpec.describe SlidingPuzzle do
+  subject do
+    described_class.new(
+      [1, 2, 0],
+      [3, 4, 5],
+      [6, 7, 8],
+    )
+  end
+
   describe "#initialize" do
     it "can be initialized from array arguments" do
-      subject = described_class.new(
-        [1, 2, 0],
-        [3, 4, 5],
-        [6, 7, 8],
-      )
-
       expect(subject.tiles).to eq [
         [1, 2, 0],
         [3, 4, 5],
@@ -36,6 +38,26 @@ RSpec.describe SlidingPuzzle do
 
       subject = described_class.new [[1, 2, 0]]
       expect(subject.tiles).to eq [[1, 2, 0]]
+    end
+  end
+
+  describe "#find" do
+    it "finds the row and column of a number" do
+      result = subject.find(1)
+      expect(result).to eq [0, 0]
+
+      result = subject.find(4)
+      expect(result).to eq [1, 1]
+
+      result = subject.find(5)
+      expect(result).to eq [1, 2]
+    end
+
+    context "when the number doesn't exist" do
+      it "returns nil" do
+        result = subject.find(9)
+        expect(result).to eq(nil)
+      end
     end
   end
 end

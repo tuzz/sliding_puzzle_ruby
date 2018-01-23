@@ -13,6 +13,16 @@ class SlidingPuzzle
     @tiles
   end
 
+  def find(number)
+    tiles.each.with_index do |numbers, row|
+      numbers.each.with_index do |n, column|
+        return [row, column] if n == number
+      end
+    end
+
+    nil
+  end
+
   private
 
   def flatten_tiles(tiles)
