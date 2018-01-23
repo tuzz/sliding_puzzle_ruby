@@ -1,4 +1,5 @@
 require "rspec"
+require "pry"
 require "sliding_puzzle"
 
 RSpec.configure do |config|
