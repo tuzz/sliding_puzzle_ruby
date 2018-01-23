@@ -3,6 +3,9 @@ class SlidingPuzzle
     self.tiles = flatten_tiles(tiles)
     self.max_row = @tiles.size - 1
     self.max_column = @tiles.first.size - 1
+
+    must_be_rectangular!
+    must_contain_one_blank!
   end
 
   def slide!(direction)
@@ -82,8 +85,26 @@ class SlidingPuzzle
     end
   end
 
+  def must_be_rectangular!
+    sizes = tiles.map(&:size)
+
+    if sizes.uniq.size > 1
+      raise NotRectangularError, "puzzle must be rectangular"
+    end
+  end
+
+  def must_contain_one_blank!
+    blanks = tiles.flatten.count(0)
+
+    unless blanks == 1
+      raise BlankError, "puzzle must contain a single blank"
+    end
+  end
+
   attr_accessor :max_row, :max_column
   attr_writer :tiles
 
   class InvalidMoveError < StandardError; end
+  class NotRectangularError < StandardError; end
+  class BlankError < StandardError; end
 end

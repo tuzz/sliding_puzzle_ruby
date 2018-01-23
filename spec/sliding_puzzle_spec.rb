@@ -47,4 +47,18 @@ RSpec.describe SlidingPuzzle do
       [6, 7, 8],
     ]
   end
+
+  it "works for the 'Dimensions' example in the readme" do
+		two_by_four = SlidingPuzzle.new(
+			[1, 2, 3, 4],
+			[5, 6, 7, 0],
+		)
+
+		two_by_four.slide!(:down)
+
+    expect { two_by_four.print }.to output([
+      [1, 2, 3, 0],
+      [5, 6, 7, 4],
+    ].map(&:inspect).join("\n")).to_stdout
+  end
 end

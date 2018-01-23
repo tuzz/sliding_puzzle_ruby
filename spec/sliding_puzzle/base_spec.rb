@@ -39,6 +39,30 @@ RSpec.describe SlidingPuzzle do
       subject = described_class.new [[1, 2, 0]]
       expect(subject.tiles).to eq [[1, 2, 0]]
     end
+
+    it "raises an error if the puzzle isn't rectangular" do
+      expect { described_class.new([1], [2, 0]) }
+        .to raise_error(
+          described_class::NotRectangularError,
+          "puzzle must be rectangular",
+        )
+    end
+
+    it "raises an error if the puzzle doesn't contain a blank" do
+      expect { described_class.new([1], [2]) }
+        .to raise_error(
+          described_class::BlankError,
+          "puzzle must contain a single blank",
+        )
+    end
+
+    it "raises an error if the puzzle contains more than one blank" do
+      expect { described_class.new([0], [0]) }
+        .to raise_error(
+          described_class::BlankError,
+          "puzzle must contain a single blank",
+        )
+    end
   end
 
   describe "#slide!" do
