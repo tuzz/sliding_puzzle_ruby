@@ -16,4 +16,19 @@ RSpec.describe SlidingPuzzle do
       [6, 7, 8],
     ].map(&:inspect).join("\n")).to_stdout
   end
+
+  it "works for the 'Moves' example in the readme" do
+    puzzle = SlidingPuzzle.new(
+      [1, 2, 0],
+      [3, 4, 5],
+      [6, 7, 8],
+    )
+
+    expect(puzzle.moves).to eq [:right, :up]
+
+    expect { puzzle.slide(:left) }.to raise_error(
+      SlidingPuzzle::InvalidMoveError,
+      "unable to slide left",
+    )
+  end
 end
