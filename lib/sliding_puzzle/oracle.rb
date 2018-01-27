@@ -50,14 +50,17 @@ class SlidingPuzzle
     end
 
     def write(path)
-      File.open(path, "wb") do |file|
-        Marshal.dump(self, file)
-      end
+      data = Marshal.dump(self)
+      gzip = Zlib::Deflate.deflate(data)
+
+      File.open(path, "wb") { |f| f.write(gzip) }
     end
 
     def self.read(path)
-      file = File.open(path, "rb")
-      Marshal.load(file)
+      gzip = File.binread(path)
+      data = Zlib::Inflate.inflate(gzip)
+
+      Marshal.load(data)
     end
 
     private
