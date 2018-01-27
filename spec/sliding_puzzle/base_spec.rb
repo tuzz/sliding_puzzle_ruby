@@ -212,6 +212,24 @@ RSpec.describe SlidingPuzzle do
     end
   end
 
+  describe "#scramble" do
+    it "does not mutate the existing puzzle and returns a new one" do
+      puzzle = subject.scramble
+
+      expect(subject.tiles).to eq [
+        [1, 2, 0],
+        [3, 4, 5],
+        [6, 7, 8],
+      ]
+
+      expect(puzzle.tiles).not_to eq [
+        [1, 2, 0],
+        [3, 4, 5],
+        [6, 7, 8],
+      ]
+    end
+  end
+
   describe "#get" do
     it "gets the tile at row, column" do
       expect(subject.get(0, 0)).to eq(1)

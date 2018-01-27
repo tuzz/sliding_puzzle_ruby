@@ -65,6 +65,10 @@ class SlidingPuzzle
     self
   end
 
+  def scramble(moves: 100)
+    clone.scramble!(moves: moves)
+  end
+
   def tiles
     JSON.parse(JSON.generate(@tiles))
   end
