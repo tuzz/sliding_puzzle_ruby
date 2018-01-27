@@ -219,4 +219,38 @@ RSpec.describe SlidingPuzzle do
       expect(subject.get(2, 0)).to eq(6)
     end
   end
+
+  describe "equality" do
+    let(:identical_puzzle) do
+      described_class.new(
+        [1, 2, 0],
+        [3, 4, 5],
+        [6, 7, 8],
+      )
+    end
+
+    let(:different_puzzle) do
+      described_class.new(
+        [1, 0, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+      )
+    end
+
+    it "is equal if the tiles are equal" do
+      expect(subject).to eq(identical_puzzle)
+      expect(identical_puzzle).to eq(subject)
+
+      expect(subject).not_to eq(different_puzzle)
+      expect(different_puzzle).not_to eq(subject)
+    end
+
+    it "defines equality for hash lookups" do
+      hash = {}
+      hash[subject] = true
+
+      expect(hash[identical_puzzle]).to eq(true)
+      expect(hash[different_puzzle]).to eq(nil)
+    end
+  end
 end

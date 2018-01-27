@@ -75,6 +75,16 @@ class SlidingPuzzle
     nil
   end
 
+  def ==(other)
+    tiles == other.tiles
+  end
+
+  alias :eql? :==
+
+  def hash
+    tiles.hash
+  end
+
   private
 
   def flatten_tiles(tiles)
