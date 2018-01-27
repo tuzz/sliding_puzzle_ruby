@@ -143,12 +143,12 @@ oracle.solve(start_state)
 ### Oracles ###
 
 Oracles aren't magic. They are the result of precomputing solutions in advance.
-This gem provides oracles for puzzles with up to ten tiles:
+This gem provides oracles for puzzles with up to eight tiles:
 
 ```ruby
 goal_state = SlidingPuzzle.new(
-  [1, 2, 3, 4, 5],
-  [6, 7, 0, 8, 9],
+  [1, 2, 3, 4],
+  [5, 0, 6, 7],
 )
 
 oracle = SlidingPuzzle.oracle(goal_state)
@@ -156,8 +156,8 @@ oracle = SlidingPuzzle.oracle(goal_state)
 
 The numbers of the goal state must be sequential, but the blank can be anywhere.
 
-The `#oracle` method will return `nil` for a puzzle with more than ten tiles, or
-if the numbers aren't sequential.
+The `#oracle` method will return `nil` for a puzzle with more than eight tiles,
+or if the numbers aren't sequential.
 
 ### Impossible puzzles ###
 
@@ -222,7 +222,6 @@ For puzzles with greater than 12 tiles, you won't be able to precompute an
 oracle in a reasonable amount of time. The 4x4 puzzle will take more than 40,000
 times longer to precompute than the 3x4 puzzle and require terrabytes of RAM.
 The `debug` flag will reveal if it's ever likely to finish:
-
 
 ```ruby
 SlidingPuzzle.precompute(goal_state, debug: true)

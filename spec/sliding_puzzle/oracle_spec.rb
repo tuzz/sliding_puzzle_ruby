@@ -33,6 +33,36 @@ RSpec.describe SlidingPuzzle::Oracle do
     end
   end
 
+  describe ".precompute_all" do
+    let(:directory) { Dir.mktmpdir }
+
+    it "generates files for oracles up to the maximum number of tiles" do
+      described_class.precompute_all(max_tiles: 4, directory: directory)
+
+      paths = Dir["#{directory}/*"].to_a
+      names = paths.map { |p| File.basename(p) }
+
+      expect(names).to include(
+       "0,1:2,3.dat",
+       "1,0:2,3.dat",
+       "1,2:0,3.dat",
+       "1,2:3,0.dat",
+      )
+
+      expect(names.join).not_to include("5")
+    end
+
+    it "can print debug output" do
+      expect {
+        described_class.precompute_all(
+          max_tiles: 4,
+          directory: directory,
+          debug: true,
+        )
+      }.to output(%r{Precomputing #{directory}/0,1:2,3.dat... Done.}).to_stdout
+    end
+  end
+
   describe "#solve" do
     let(:goal_state) do
       SlidingPuzzle.new(

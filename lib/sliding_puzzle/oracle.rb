@@ -30,6 +30,36 @@ class SlidingPuzzle
       new(lookup_table)
     end
 
+    def self.precompute_all(max_tiles: 8, directory: "oracles", debug: false)
+      FileUtils.mkdir_p("oracles")
+
+      1.upto(5) do |rows|
+        1.upto(5) do |columns|
+          number_of_tiles = rows * columns - 1
+          next if number_of_tiles > max_tiles
+
+          numbers = 1.upto(number_of_tiles).to_a
+
+          0.upto(number_of_tiles) do |position|
+            numbers_with_blank = numbers.dup.insert(position, 0)
+            tiles = numbers_with_blank.each_slice(columns).to_a
+
+            goal_state = SlidingPuzzle.new(tiles)
+
+            basename = tiles.map { |row| row.join(",") }.join(":")
+            path = "#{directory}/#{basename}.dat"
+
+            print "Precomputing #{path}... " if debug
+
+            oracle = precompute(goal_state)
+            oracle.write(path)
+
+            puts "Done." if debug
+          end
+        end
+      end
+    end
+
     def initialize(lookup_table)
       self.lookup_table = lookup_table
     end
