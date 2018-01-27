@@ -1,4 +1,8 @@
 class SlidingPuzzle
+  def self.oracle(goal_state)
+    Oracle.lookup(goal_state)
+  end
+
   def self.precompute(goal_state, **options)
     Oracle.precompute(goal_state, **options)
   end

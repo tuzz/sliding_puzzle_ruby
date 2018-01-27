@@ -62,9 +62,26 @@ RSpec.describe SlidingPuzzle do
     ].map(&:inspect).join("\n")).to_stdout
   end
 
-  pending "works for the 'Solving' example in the readme"
   pending "works for the 'Oracles' example in the readme"
   pending "works for the 'Impossible puzzles' example in the readme"
+  it "works for the 'Solving' example in the readme" do
+    goal_state = SlidingPuzzle.new(
+      [1, 2, 0],
+      [3, 4, 5],
+      [6, 7, 8],
+    )
+
+    oracle = SlidingPuzzle.oracle(goal_state)
+
+    start_state = SlidingPuzzle.new(
+      [1, 4, 2],
+      [3, 7, 5],
+      [6, 0, 8],
+    )
+
+    moves = oracle.solve(start_state)
+    expect(moves).to eq [:down, :down, :left]
+  end
 
   it "works for the (simplified) 'Precomputing' example in the readme" do
     goal_state = SlidingPuzzle.new(

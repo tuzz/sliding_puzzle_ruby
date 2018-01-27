@@ -74,6 +74,30 @@ RSpec.describe SlidingPuzzle::Oracle do
       expect(basename).to eq("1,2,3:4,5,0")
     end
   end
+
+  describe ".lookup" do
+    it "looks up a precomputed oracle" do
+      goal_state = SlidingPuzzle.new(
+        [1, 2, 3],
+        [4, 5, 0],
+      )
+
+      oracle = described_class.lookup(goal_state)
+
+      puzzle = goal_state.slide(:right)
+      moves = oracle.solve(puzzle)
+
+      expect(moves).to eq [:left]
+    end
+
+    it "returns nil if the oracle doesn't exist" do
+      goal_state = SlidingPuzzle.new(
+        [1, 2, 3, 4, 5],
+        [6, 7, 8, 9, 0],
+      )
+
+      oracle = described_class.lookup(goal_state)
+      expect(oracle).to be_nil
     end
   end
 
@@ -135,7 +159,7 @@ RSpec.describe SlidingPuzzle::Oracle do
     end
   end
 
-  describe "#write / #read" do
+  describe "#write / .read" do
     subject do
       goal_state = SlidingPuzzle.new(
         [1, 2],

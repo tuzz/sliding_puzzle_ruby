@@ -58,6 +58,13 @@ class SlidingPuzzle
       end
     end
 
+    def self.lookup(goal_state)
+      filename = "#{basename(goal_state)}.dat"
+      path = File.expand_path("#{__dir__}/../../oracles/#{filename}")
+
+      read(path) if File.exist?(path)
+    end
+
     def self.basename(puzzle)
       puzzle.tiles.map { |row| row.join(",") }.join(":")
     end
