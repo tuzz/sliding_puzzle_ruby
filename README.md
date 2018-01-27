@@ -221,6 +221,18 @@ oracle.solve(start_state)
 For puzzles with greater than 12 tiles, you won't be able to precompute an
 oracle in a reasonable amount of time. The 4x4 puzzle will take more than 40,000
 times longer to precompute than the 3x4 puzzle and require terrabytes of RAM.
+The `debug` flag will reveal if it's ever likely to finish:
+
+
+```ruby
+SlidingPuzzle.precompute(goal_state, debug: true)
+# queue size: 1
+# queue size: 2
+# queue size: 3
+# ...
+```
+
+If it just keeps growing, it's unlikely to finish.
 
 ### Other methods ###
 

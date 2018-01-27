@@ -1,6 +1,6 @@
 class SlidingPuzzle
-  def self.precompute(goal_state)
-    Oracle.precompute(goal_state)
+  def self.precompute(goal_state, **options)
+    Oracle.precompute(goal_state, **options)
   end
 
   def self.read(path)

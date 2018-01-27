@@ -86,6 +86,15 @@ RSpec.describe SlidingPuzzle do
 
     moves = new_oracle.solve(start_state)
     expect(moves).to eq [:down, :right]
+
+    goal_state = SlidingPuzzle.new([1, 2, 0])
+
+    expect { SlidingPuzzle.precompute(goal_state, debug: true) }
+      .to output([
+        "queue size: 1",
+        "queue size: 1",
+        "queue size: 1\n",
+      ].join("\n")).to_stdout
   end
 
   it "works for the 'Other methods' example in the readme" do
