@@ -63,6 +63,20 @@ RSpec.describe SlidingPuzzle::Oracle do
     end
   end
 
+  describe ".basename" do
+    it "returns a name based on the rows and columns of the puzzle" do
+      puzzle = SlidingPuzzle.new(
+        [1, 2, 3],
+        [4, 5, 0],
+      )
+
+      basename = described_class.basename(puzzle)
+      expect(basename).to eq("1,2,3:4,5,0")
+    end
+  end
+    end
+  end
+
   describe "#solve" do
     let(:goal_state) do
       SlidingPuzzle.new(

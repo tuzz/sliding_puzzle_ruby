@@ -45,9 +45,7 @@ class SlidingPuzzle
             tiles = numbers_with_blank.each_slice(columns).to_a
 
             goal_state = SlidingPuzzle.new(tiles)
-
-            basename = tiles.map { |row| row.join(",") }.join(":")
-            path = "#{directory}/#{basename}.dat"
+            path = "#{directory}/#{basename(goal_state)}.dat"
 
             print "Precomputing #{path}... " if debug
 
@@ -58,6 +56,10 @@ class SlidingPuzzle
           end
         end
       end
+    end
+
+    def self.basename(puzzle)
+      puzzle.tiles.map { |row| row.join(",") }.join(":")
     end
 
     def initialize(lookup_table)
