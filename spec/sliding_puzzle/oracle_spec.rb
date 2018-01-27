@@ -90,4 +90,30 @@ RSpec.describe SlidingPuzzle::Oracle do
       expect(moves).to be_nil
     end
   end
+
+  describe "#write / #read" do
+    subject do
+      goal_state = SlidingPuzzle.new(
+        [1, 2],
+        [3, 0],
+      )
+
+      described_class.precompute(goal_state)
+    end
+
+    it "marshals and unmarshals the oracle to a file" do
+      file = Tempfile.new
+
+      subject.write(file.path)
+      oracle = described_class.read(file.path)
+
+      puzzle = SlidingPuzzle.new(
+        [1, 0],
+        [3, 2],
+      )
+
+      moves = oracle.solve(puzzle)
+      expect(moves).to eq [:up]
+    end
+  end
 end

@@ -1,5 +1,6 @@
 require "rspec"
 require "pry"
+require "tempfile"
 require "sliding_puzzle"
 
 RSpec.configure do |config|

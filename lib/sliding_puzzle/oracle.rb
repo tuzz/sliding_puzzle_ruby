@@ -49,6 +49,17 @@ class SlidingPuzzle
       end
     end
 
+    def write(path)
+      File.open(path, "wb") do |file|
+        Marshal.dump(self, file)
+      end
+    end
+
+    def self.read(path)
+      file = File.open(path, "rb")
+      Marshal.load(file)
+    end
+
     private
 
     attr_accessor :lookup_table
