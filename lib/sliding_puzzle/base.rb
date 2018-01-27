@@ -1,4 +1,12 @@
 class SlidingPuzzle
+  def self.precompute(goal_state)
+    Oracle.precompute(goal_state)
+  end
+
+  def self.read(path)
+    Oracle.read(path)
+  end
+
   def initialize(*tiles)
     self.tiles = flatten_tiles(tiles)
     self.max_row = @tiles.size - 1

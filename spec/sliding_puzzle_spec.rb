@@ -49,12 +49,12 @@ RSpec.describe SlidingPuzzle do
   end
 
   it "works for the 'Dimensions' example in the readme" do
-		two_by_four = SlidingPuzzle.new(
-			[1, 2, 3, 4],
-			[5, 6, 7, 0],
-		)
+    two_by_four = SlidingPuzzle.new(
+      [1, 2, 3, 4],
+      [5, 6, 7, 0],
+    )
 
-		two_by_four.slide!(:down)
+    two_by_four.slide!(:down)
 
     expect { two_by_four.print }.to output([
       [1, 2, 3, 0],
@@ -65,7 +65,28 @@ RSpec.describe SlidingPuzzle do
   pending "works for the 'Solving' example in the readme"
   pending "works for the 'Oracles' example in the readme"
   pending "works for the 'Impossible puzzles' example in the readme"
-  pending "works for the 'Precomputing' example in the readme"
+
+  it "works for the (simplified) 'Precomputing' example in the readme" do
+    goal_state = SlidingPuzzle.new(
+      [0, 1, 2],
+      [3, 4, 5],
+    )
+
+    oracle = SlidingPuzzle.precompute(goal_state)
+
+    file = Tempfile.new
+    oracle.write(file.path)
+
+    new_oracle = SlidingPuzzle.read(file.path)
+
+    start_state = SlidingPuzzle.new(
+      [1, 4, 2],
+      [3, 0, 5],
+    )
+
+    moves = new_oracle.solve(start_state)
+    expect(moves).to eq [:down, :right]
+  end
 
   it "works for the 'Other methods' example in the readme" do
     puzzle = SlidingPuzzle.new(
