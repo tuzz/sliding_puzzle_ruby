@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sliding Puzzle Solver</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Sliding Puzzle Solver</h1>
+
+      <p>
+      You can slide tiles around in the puzzle below by clicking on them or by
+      using the Scramble button. The right-hand side of the page shows the best
+      possible solution to solve the puzzle, as precomputed by the
+      <a target="_blank" href="https://github.com/tuzz/sliding_puzzle">sliding_puzzle gem</a>.
+      </p>
+
+      <p>
+      This page is served by a simple Rack application. A GET request can be
+      made that encodes the current state of the puzzle. The response is an
+      array of moves to solve it in the fewest moves. The URL for the current
+      puzzle is <a target="_blank" id="encoding"></a>.
+      </p>
+
+      <canvas id="canvas" width="400" height="400"></canvas>
+
+      <div class="solution">
+        Best solution:
+        <div id="moves"></div>
+      </div>
+
+      <button class="scramble" onclick="app.scramble(20)">Scramble</button>
+      <button class="step" onclick="app.step()">Step</button>
+      <button class="solve" onclick="app.solve()">Solve</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
