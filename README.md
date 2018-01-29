@@ -2,8 +2,6 @@
 
 A Ruby gem for manipulating and solving sliding tile puzzles.
 
-**TODO - this gem is a work in progress**
-
 ### Overview ###
 
 You might have come across sliding tile puzzles before. They're usually cheap,
