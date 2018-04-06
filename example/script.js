@@ -4,10 +4,17 @@ var App = function () {
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext("2d");
 
+//  var tiles = [
+//    [4, 2, 3],
+//    [7, 0, 6],
+//    [1, 5, 8],
+//  ];
+
   var tiles = [
-    [4, 2, 3],
-    [7, 0, 6],
-    [1, 5, 8],
+    [10, 1, 4, 5],
+    [9, 2, 6, 8],
+    [11, 3, 0, 15],
+    [13, 14, 7, 12],
   ];
 
   var slidingTile, slidingDirection, slidingCallback;
@@ -16,14 +23,21 @@ var App = function () {
 
   var colors = [
     null,
-    "#d7f4fe",
-    "#dcd2fe",
-    "#fed7e7",
-    "#cff7f4",
-    "#fbeed0",
-    "#fdb9b4",
-    "#d6efd1",
-    "#fed0b9",
+    "#F9FF1A",
+    "#F8ED1A",
+    "#F8DC1A",
+    "#F8CB1B",
+    "#F7BA1B",
+    "#F7A91C",
+    "#F7981C",
+    "#F7871D",
+    "#F6751D",
+    "#F6641D",
+    "#F6531E",
+    "#F5421E",
+    "#F5311F",
+    "#F5201F",
+    "#FF0000",
   ]
 
   self.run = function () {
@@ -111,7 +125,7 @@ var App = function () {
   }
 
   var renderTile = function (tile, row, column) { var border = canvas.width * 0.01;
-    var size = (canvas.width - border) / 3;
+    var size = (canvas.width - border) / 4;
 
     var x = column * size + border / 2;
     var y = row * size + border / 2;
@@ -124,13 +138,13 @@ var App = function () {
     context.fillStyle = colors[tile];
     context.fillRect(x, y, size, size);
 
-    context.lineWidth = border; context.strokeStyle = "#444";
+    context.lineWidth = border; context.strokeStyle = "#000";
     context.strokeRect(x, y, size, size);
 
-    context.font = "80px Helvetica";
+    context.font = "60px Helvetica";
     context.textAlign = "center";
-    context.fillStyle = "#444";
-    context.fillText(tile, x + 65, y + 90);
+    context.fillStyle = "#000";
+    context.fillText(tile, x + 50, y + 70);
   };
 
   var slideTile = function () {
@@ -180,14 +194,14 @@ var App = function () {
     var x = event.x - bounds.x;
     var y = event.y - bounds.y;
 
-    var column = Math.floor(x / canvas.width * 3);
-    var row = Math.floor(y / canvas.width * 3);
+    var column = Math.floor(x / canvas.width * 4);
+    var row = Math.floor(y / canvas.width * 4);
 
     startSliding(row, column);
   };
 
   var outOfBounds = function (x, y) {
-    return x < 0 || x >= 3 || y < 0 || y >= 3;
+    return x < 0 || x >= 4 || y < 0 || y >= 4;
   };
 
   var opposite = function (direction) {
@@ -212,6 +226,7 @@ var App = function () {
     link.setAttribute("href", "/" + puzzle);
 
     get(puzzle, function (moves) {
+        console.log(moves);
       solution = moves;
 
       var html = "";
