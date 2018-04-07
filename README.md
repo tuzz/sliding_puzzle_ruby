@@ -2,6 +2,8 @@
 
 A Ruby gem for manipulating and solving sliding tile puzzles.
 
+(Also see [sliding_puzzle_rust](https://github.com/tuzz/sliding_puzzle_rust))
+
 ### Overview ###
 
 You might have come across sliding tile puzzles before. They're usually cheap,
